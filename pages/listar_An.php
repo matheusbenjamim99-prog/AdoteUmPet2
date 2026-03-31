@@ -32,12 +32,14 @@ $result = $conn->query($sql);
     </section>
     <?php 
         while ($animal = $result->fetch_assoc()) {
+
             echo '<section class="pet-gallery" id="petGalleryContainer" data-aos="fade-up">';
                 echo '<div class="pet-card sponsor-card" data-pet-id="TONY" data-goal="150" data-current="45" data-aos="fade-up">';
+                    echo "<img src='uploads/" . $animal['imagem'] . "' width='200'><br>";
                     echo "<h2>" . $animal['nome'] . "</h2>";
                     echo "<small>ONG Parceira: Abrigo Coração Amigo</small>";
                     echo '<p>🐾 <strong>Espécie:</strong>'  . $animal["especie"] . ' | 🗓️ <strong>Idade:</strong> '. $animal['idade'] .' anos</p>';
-                    echo '<p class="description"' . $animal['descricao'] . "</p>";
+                    echo '<p class="description">' . $animal['descricao'] . "</p>";
                     echo '<a href="https://api.whatsapp.com/send?phone=5585996991515&text=Olá! Quero apadrinhar o Tony e ajudar com seu tratamento."
                     target="_blank" class="whatsapp-button sponsor-button">
                     Quero Adotar ' . $animal['nome'] . '!
@@ -46,32 +48,6 @@ $result = $conn->query($sql);
             echo '</section>';  
         }
     ?>
-    {% for c in cachorro %}
-        {% if c.adotado == False %}
-        <section class="pet-gallery" id="petGalleryContainer" data-aos="fade-up">
-            <div class="pet-card sponsor-card" data-pet-id="TONY" data-goal="150" data-current="45" data-aos="fade-up">
-                {% if c.foto %}
-                <img src="{{ c.foto.url }}" width="400">
-                {% else %}
-                <p>Sem foto cadastrado.</p>
-                {% endif %}
-                <h2>{{ c.nome }}</h2>
-                <small>ONG Parceira: Abrigo Coração Amigo</small>
-                <p>🐾 <strong>Espécie:</strong> {{ c.especie }} | 🗓️ <strong>Idade:</strong> {{ c.idade }} anos</p>
-                <p class="description">{{ c.descricao }}</p>
-
-                
-
-                <a href="https://api.whatsapp.com/send?phone=5585996991515&text=Olá! Quero apadrinhar o Tony e ajudar com seu tratamento."
-                    target="_blank" class="whatsapp-button sponsor-button">
-                    Quero Adotar {{ c.nome }}!
-                </a>
-
-            </div>
-        </section>
-        {% endif %}
-    {% endfor %}
-
     <div class="no-pets-feedback">
         <i class="fas fa-search-minus"></i>
         <p>Ops! Nenhum pet encontrado com os filtros selecionados.</p>

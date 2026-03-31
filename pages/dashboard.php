@@ -25,16 +25,19 @@ $result = $conn->query($sql);
             <?php if ($result->num_rows > 0): ?>
 
                 <?php while ($animal = $result->fetch_assoc()): ?>
-                    <div class="contact-box">
-                        <h3><?php echo $animal['nome']; ?></h3>
-                        <p><strongEspécie:></strong> <?php echo $animal['especie']; ?></p>
-                        <p><strong>Espécie:</strong> <?php echo $animal['idade']; ?></p>
+                    <section class="pet-gallery" id="petGalleryContainer" data-aos="fade-up">
+                        <div class="pet-card sponsor-card" data-pet-id="TONY" data-goal="150" data-current="45" data-aos="fade-up">
+                            <?php echo "<img src='uploads/" . $animal['imagem'] . "' width='200'>"; ?>
+                            <h2><?php echo $animal['nome']; ?></h2>
+                            <p><strong>Espécie:</strong> <?php echo $animal['especie']; ?></p>
+                            <p><strong>Idade:</strong> <?php echo $animal['idade']; ?></p>
+                            <p><strong>Porte:</strong> <?php echo $animal['porte']; ?></p>
+                            <p><strong>Descrição:</strong> <?php echo $animal['descricao']; ?></p>
+                            <br>
+                            <a href="animais/cadastrar?id=<?php echo $animal['id']; ?>" class="whatsapp-button sponsor-button">Editar</a>
 
-                        <br>
-                        <a href="editar_animal.php?id=<?php echo $animal['id']; ?>" class="form-submit-button">
-                            Editar
-                        </a>
-                    </div>
+                        </div>
+                    </section>
                 <?php endwhile; ?>
 
             <?php else: ?>
