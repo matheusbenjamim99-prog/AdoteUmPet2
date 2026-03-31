@@ -12,7 +12,8 @@ if ($_POST) {
 
         if (password_verify($senha, $user['senha'])) {
             $_SESSION['usuario'] = $user['id'];
-            header("Location: dashboard.php");
+            $_SESSION['nome'] = $user['nome'];
+            header("Location: dashboard");
         } else {
             echo "Senha incorreta!";
         }

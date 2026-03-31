@@ -6,7 +6,7 @@ include("includes/header.php");
         <h1>Salvar Vidas, Encontrar o Lar Perfeito.</h1>
         <p>Unimos ONGs, protetores e voluntários para facilitar adoções seguras e cheias de amor em Fortaleza e região.
         </p>
-        <a href="{%url 'project'%}" class="cta-button">Ver Pets para Adoção</a>
+        <a href="animais" class="cta-button">Ver Pets para Adoção</a>
         <a href="{%url 'sponsorship'%}" class="cta-button secondary-cta-button">Apadrinhe um Pet</a>
     </div>
 </header>
@@ -38,7 +38,7 @@ include("includes/header.php");
     <section class="call-to-action" data-aos="zoom-in">
         <h2>Seu Novo Melhor Amigo Espera por Você!</h2>
         <p>Mais de 500 vidas transformadas. Deixe-nos ajudar a mudar a sua também.</p>
-        <a href="{% url 'project' %}" class="cta-button large-cta">Começar a Busca</a>
+        <a href="animais" class="cta-button large-cta">Começar a Busca</a>
     </section>
 
     <section class="partners" data-aos="fade-up">
@@ -53,6 +53,5 @@ include("includes/header.php");
 </main>
 
     <a href="login">Login</a> |
-    <a href="cadastro">Cadastrar</a> |
-    <a href="listar_An">Ver animais</a>
+    <a href="cadastro">Cadastrar</a>
 <?php include("includes/footer.php");?>

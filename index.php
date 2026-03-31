@@ -10,16 +10,24 @@ switch ($url) {
         include 'pages/login.php';
         break;
 
+    case 'logout':
+        include 'pages/logout.php';
+        break;
+
     case 'cadastro':
         include 'pages/cadastro.php';
         break;
 
     case 'animais':
-        include 'pages/listar_animais.php';
+        include 'pages/listar_An.php';
         break;
 
     case 'animais/cadastrar':
-        include 'pages/cadastrar_animal.php';
+        include 'pages/cadastrar_An.php';
+        break;
+    
+    case 'dashboard':
+        include 'pages/dashboard.php';
         break;
 
     default:

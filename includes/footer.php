@@ -29,7 +29,7 @@
         <div class="footer-bottom">
             <p>© 2025 Caminho do Nosso Lar – Todos os direitos reservados.</p>
             <a href="#top" class="back-to-top">Voltar ao topo</a>
-            <form action="/logout/" method="post">
+            <form action="logout" method="post">
     <button type="submit">Logout</button>
 </form>
         </div>
