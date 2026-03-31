@@ -31,6 +31,8 @@ $result = $conn->query($sql);
     
     </section>
     <?php 
+        echo '<section class="contact-area">';
+        echo '<div class="contact-info-grid">';
         while ($animal = $result->fetch_assoc()) {
 
             echo '<section class="pet-gallery" id="petGalleryContainer" data-aos="fade-up">';
@@ -47,6 +49,8 @@ $result = $conn->query($sql);
                 echo '</div>';
             echo '</section>';  
         }
+        echo '</div>';
+        echo '</section>';
     ?>
     <div class="no-pets-feedback">
         <i class="fas fa-search-minus"></i>

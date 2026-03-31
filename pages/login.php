@@ -1,4 +1,5 @@
 <?php include("config.php");
+include("includes/header.php");
 
 if ($_POST) {
     $email = $_POST['email'];
@@ -22,9 +23,21 @@ if ($_POST) {
     }
 }
 ?>
-
-<form method="POST">
-    Email: <input type="email" name="email"><br>
-    Senha: <input type="password" name="senha"><br>
-    <button type="submit">Entrar</button>
-</form>
+<header class="page-header" data-aos="fade-down">
+    <h1>Login</h1>
+    <p>Entre na sua conta para continuar ajudando nossos pets 🐶</p>
+</header>
+<main>
+    <section class="contact-area">
+        <section class="contact-form-section">
+            <form method="POST" class="contact-form">
+                <h2 data-aos="fade-right">Acessar Conta</h2>
+                Email: <input type="email" name="email"><br>
+                Senha: <input type="password" name="senha"><br>
+                <a href="cadastro">Cadastrar</a><br>
+            <button type="submit" class="form-submit-button">Entrar</button>
+            </form>
+        </section>
+    </section>
+</main>
+<?php include("includes/footer.php")?>

@@ -1,15 +1,21 @@
-<?php include("config.php");
+<?php 
+include("config.php");
+include("includes/header.php");
 
 if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
+    exit;
 }
+
 $id = $_GET['id'] ?? null;
 
 $nome = "";
 $especie = "";
 $idade = "";
 $porte = "";
+$imagemAtual = "";
 
+// 🔎 BUSCAR DADOS (EDIÇÃO)
 if ($id) {
 
     $sql = "SELECT * FROM animais 
@@ -18,48 +24,93 @@ if ($id) {
     $result = $conn->query($sql);
     $animal = $result->fetch_assoc();
 
-    $nome = $animal['nome'];
-    $especie = $animal['especie'];
-    $idade = $animal['idade'];
-    $porte = $animal['porte'];
+    if ($animal) {
+        $nome = $animal['nome'];
+        $especie = $animal['especie'];
+        $idade = $animal['idade'];
+        $porte = $animal['porte'];
+        $imagemAtual = $animal['imagem']; // ✔️ pega aqui
+    }
 }
 
+// 💾 SALVAR
 if ($_POST) {
+
     $nome = $_POST['nome'];
     $especie = $_POST['especie'];
     $idade = $_POST['idade'];
     $descricao = $_POST['descricao'];
-    $imagem = $_FILES['imagem'];
-    $usuario_id = $_SESSION['usuario'];
     $porte = $_POST['porte'];
 
-    $nomeImagem = time() . "_" . $imagem['name'];
-    $caminho = "uploads/" . $nomeImagem;
+    // 👉 mantém imagem antiga
+    $nomeImagem = $imagemAtual;
 
-    move_uploaded_file($imagem['tmp_name'], $caminho);
+    // 👉 se enviou nova imagem
+    if (!empty($_FILES['imagem']['name'])) {
 
-    $sql = "INSERT INTO animais (nome, especie, idade, descricao,imagem , usuario_id, porte)
-            VALUES ('$nome', '$especie', '$idade', '$descricao', '$nomeImagem' , '$usuario_id', '$porte')";
+        $imagem = $_FILES['imagem'];
 
-    if ($conn->query($sql)) {
-        echo "Animal cadastrado!";
+        $nomeImagem = uniqid() . "." . pathinfo($imagem['name'], PATHINFO_EXTENSION);
+
+        move_uploaded_file($imagem['tmp_name'], "uploads/" . $nomeImagem);
     }
+
+    if ($id) {
+
+        $sql = "UPDATE animais 
+                SET nome='$nome', especie='$especie', idade='$idade', porte='$porte', imagem='$nomeImagem', descricao='$descricao'
+                WHERE id='$id' AND usuario_id='{$_SESSION['usuario']}'";
+
+    } else {
+
+        $sql = "INSERT INTO animais (nome, especie, idade, descricao, imagem, usuario_id, porte)
+                VALUES ('$nome', '$especie', '$idade', '$descricao', '$nomeImagem', '{$_SESSION['usuario']}', '$porte')";
+    }
+
+    $conn->query($sql);
+
+    header("Location: /AdotUmPet/dashboard");
+    exit;
 }
 ?>
+<header class="page-header" data-aos="fade-down">
+    <h1>Cadastrar Animal</h1>
+    <p>Ajude um pet a encontrar um lar 🐶</p>
+</header>
+    <main>
+        <section class="contact-area">
+            <section class="contact-form-section">
+                <form method="POST" enctype="multipart/form-data" class="contact-form">
+                    <h2 data-aos="fade-right">Novo Pet</h2>
+                    <!-- 🖼️ MOSTRAR IMAGEM -->
+                    <?php if (!empty($imagemAtual)): ?>
+                        <p>Imagem atual:</p>
+                        <img src="uploads/<?php echo $imagemAtual; ?>" width="150"><br>
+                    <?php endif; ?>
 
-<form method="POST" enctype="multipart/form-data">
-    Imagem<input type="file" name="imagem"><br>
-    Nome: <input type="text" name="nome" value="<?php echo $nome; ?>"><br>
-    Espécie: <input type="text" name="especie" value="<?php echo $especie; ?>"><br>
-    Idade: <input type="number" name="idade" value="<?php echo $idade; ?>"><br>
-    Descrição: <textarea name="descricao"></textarea><br>
-    <label>Porte:</label>
-    <select name="porte">
-        <option value="Pequeno" <?= $porte == "Pequeno" ? "selected" : "" ?>>Pequeno</option>
-        <option value="Medio" <?= $porte == "Medio" ? "selected" : "" ?>>Médio</option>
-        <option value="Grande" <?= $porte == "Grande" ? "selected" : "" ?>>Grande</option>
-    </select><br>
-    <button type="submit">
-        <?php echo $id ? "Atualizar" : "Cadastrar"; ?>
-    </button>
-</form>
+                    Imagem: <input type="file" name="imagem"><br>
+
+                    Nome: <input type="text" name="nome" value="<?php echo $nome; ?>"><br>
+
+                    Espécie: <input type="text" name="especie" value="<?php echo $especie; ?>"><br>
+
+                    Idade: <input type="number" name="idade" value="<?php echo $idade; ?>"><br>
+
+                    Descrição: <textarea name="descricao"><?php echo $descricao ?? ''; ?></textarea><br>
+
+                    <label>Porte:</label>
+                    <select name="porte">
+                        <option value="Pequeno" <?= $porte == "Pequeno" ? "selected" : "" ?>>Pequeno</option>
+                        <option value="Medio" <?= $porte == "Medio" ? "selected" : "" ?>>Médio</option>
+                        <option value="Grande" <?= $porte == "Grande" ? "selected" : "" ?>>Grande</option>
+                    </select><br>
+
+                    <button type="submit" class="form-submit-button">
+                        <?php echo $id ? "Atualizar" : "Cadastrar"; ?>
+                    </button>
+
+                </form>
+            </section>
+        </section>
+    </main>
+<?php include("includes/footer.php");?>

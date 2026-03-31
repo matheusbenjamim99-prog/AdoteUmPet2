@@ -13,11 +13,11 @@ $result = $conn->query($sql);
 
 ?>
 
-<h2>Bem-vindo, <?php echo $nome; ?> 👋</h2>
-
-<a href="animais/cadastrar">Cadastrar Animal</a><br>
-
-<h3>Seus animais 🐾</h3>
+<header class="page-header">
+    <h1>Bem-vindo, <?php echo $nome; ?>!</h1>
+    <h2>Seus animais</h2>
+    <a href="animais/cadastrar">Cadastrar Animal</a><br>
+</header>
 
 <main>
     <section class="contact-area">
@@ -35,7 +35,6 @@ $result = $conn->query($sql);
                             <p><strong>Descrição:</strong> <?php echo $animal['descricao']; ?></p>
                             <br>
                             <a href="animais/cadastrar?id=<?php echo $animal['id']; ?>" class="whatsapp-button sponsor-button">Editar</a>
-
                         </div>
                     </section>
                 <?php endwhile; ?>
