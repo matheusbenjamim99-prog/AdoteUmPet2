@@ -30,6 +30,14 @@ switch ($url) {
         include 'pages/dashboard.php';
         break;
 
+    case 'sponsorship':
+        include 'pages/sponsorship.php';
+        break;
+
+    case 'doar':
+        include 'pages/doar.php';
+        break;
+
     default:
         echo "Página não encontrada";
 }

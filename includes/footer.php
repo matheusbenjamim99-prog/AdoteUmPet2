@@ -3,8 +3,8 @@
             <div class="footer-section">
                 <h4>Links Rápidos</h4>
                 <ul>
-                    <li><a href="{% url 'project' %}">Adote Agora</a></li>
-                    <li><a href="{% url 'sponsorship' %}">Apadrinhe</a></li>
+                    <li><a href="animais">Adote Agora</a></li>
+                    <li><a href="sponsorship">Apadrinhe</a></li>
                     <li><a href="{% url 'contact' %}">FAQ e Contato</a></li>
                 </ul>
             </div>

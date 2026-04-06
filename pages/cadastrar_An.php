@@ -12,6 +12,7 @@ $id = $_GET['id'] ?? null;
 $nome = "";
 $especie = "";
 $idade = "";
+$meta = '';
 $porte = "";
 $imagemAtual = "";
 
@@ -39,6 +40,7 @@ if ($_POST) {
     $nome = $_POST['nome'];
     $especie = $_POST['especie'];
     $idade = $_POST['idade'];
+    $meta = $_POST['meta'];
     $descricao = $_POST['descricao'];
     $porte = $_POST['porte'];
 
@@ -58,13 +60,13 @@ if ($_POST) {
     if ($id) {
 
         $sql = "UPDATE animais 
-                SET nome='$nome', especie='$especie', idade='$idade', porte='$porte', imagem='$nomeImagem', descricao='$descricao'
+                SET nome='$nome', especie='$especie', idade='$idade', meta='$meta', porte='$porte', imagem='$nomeImagem', descricao='$descricao'
                 WHERE id='$id' AND usuario_id='{$_SESSION['usuario']}'";
 
     } else {
 
-        $sql = "INSERT INTO animais (nome, especie, idade, descricao, imagem, usuario_id, porte)
-                VALUES ('$nome', '$especie', '$idade', '$descricao', '$nomeImagem', '{$_SESSION['usuario']}', '$porte')";
+        $sql = "INSERT INTO animais (nome, especie, idade, meta, descricao, imagem, usuario_id, porte)
+                VALUES ('$nome', '$especie', '$idade','$meta' , '$descricao', '$nomeImagem', '{$_SESSION['usuario']}', '$porte')";
     }
 
     $conn->query($sql);
@@ -97,6 +99,9 @@ if ($_POST) {
                     Idade: <input type="number" name="idade" value="<?php echo $idade; ?>"><br>
 
                     Descrição: <textarea name="descricao"><?php echo $descricao ?? ''; ?></textarea><br>
+                    
+                    <?php echo $id ? 'Meta: <input type="number" name="meta" value="'. $meta .'"><br>' : ""; ?>
+                    
 
                     <label>Porte:</label>
                     <select name="porte">
