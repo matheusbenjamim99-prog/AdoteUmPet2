@@ -1,6 +1,19 @@
 <?php include("config.php");
 include("includes/header.php");
-$sql = "SELECT * FROM animais";
+$sql = "SELECT * FROM animais WHERE status = 'Disponivel'";
+
+$especie = $_GET['especie'] ?? 'all';
+$porte = $_GET['porte'] ?? 'all';
+// filtro por espécie
+if ($especie != 'all') {
+    $sql .= " AND especie = '$especie'";
+}
+
+// filtro por porte
+if ($porte != 'all') {
+    $sql .= " AND porte = '$porte'";
+}
+
 $result = $conn->query($sql);
 ?>
 <header class="page-header" data-aos="fade-down">
@@ -14,16 +27,16 @@ $result = $conn->query($sql);
         <label for="filterSpecies">Espécie:</label>
         <select id="filterSpecies" class="filter-input" data-filter="species" name="especie">
             <option value="all">Todos</option>
-            <option value="cachorro">cachorro</option>
-            <option value="gato">gato</option>
+            <option value="Cachorro" <?= $especie == "Cachorro" ? "selected" : "" ?>>Cachorro</option>
+            <option value="Gato" <?= $especie == "Gato" ? "selected" : "" ?>>Gato</option>
         </select>
 
         <label for="filterSize">Porte:</label>
         <select id="filterSize" class="filter-input" data-filter="size" name="porte">
             <option value="all">Todos</option>
-            <option value="pequeno">Pequeno</option>
-            <option value="medio">Médio</option>
-            <option value="grande">Grande</option>
+            <option value="Pequeno" <?= $porte == "Pequeno" ? "selected" : "" ?>>Pequeno</option>
+            <option value="Medio" <?= $porte == "Medio" ? "selected" : "" ?>>Médio</option>
+            <option value="Grande" <?= $porte == "Grande" ? "selected" : "" ?>>Grande</option>
         </select>
 
         <button class="cta-button secondary-cta-button small-btn">Filtrar</button>

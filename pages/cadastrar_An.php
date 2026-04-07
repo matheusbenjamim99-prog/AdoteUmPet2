@@ -43,6 +43,9 @@ if ($_POST) {
     $meta = $_POST['meta'];
     $descricao = $_POST['descricao'];
     $porte = $_POST['porte'];
+    $status = $_POST['status'];
+    $historia = $_POST['historia'];
+    $data_adocao = $_POST['data_adocao'];
 
     // 👉 mantém imagem antiga
     $nomeImagem = $imagemAtual;
@@ -60,13 +63,13 @@ if ($_POST) {
     if ($id) {
 
         $sql = "UPDATE animais 
-                SET nome='$nome', especie='$especie', idade='$idade', meta='$meta', porte='$porte', imagem='$nomeImagem', descricao='$descricao'
+                SET nome='$nome', especie='$especie', idade='$idade', meta='$meta', porte='$porte', imagem='$nomeImagem', descricao='$descricao', historia='$historia', status='$status', data_adocao='$data_adocao'
                 WHERE id='$id' AND usuario_id='{$_SESSION['usuario']}'";
 
     } else {
 
-        $sql = "INSERT INTO animais (nome, especie, idade, meta, descricao, imagem, usuario_id, porte)
-                VALUES ('$nome', '$especie', '$idade','$meta' , '$descricao', '$nomeImagem', '{$_SESSION['usuario']}', '$porte')";
+        $sql = "INSERT INTO animais (nome, especie, idade, meta, descricao, imagem, usuario_id, porte, historia, status, data_adocao)
+                VALUES ('$nome', '$especie', '$idade','$meta' , '$descricao', '$nomeImagem', '{$_SESSION['usuario']}', '$porte', '$historia', '$status', '$data_adocao')";
     }
 
     $conn->query($sql);
@@ -96,9 +99,22 @@ if ($_POST) {
 
                     Espécie: <input type="text" name="especie" value="<?php echo $especie; ?>"><br>
 
+                    Status: <select name="status">
+                        <option value="Disponivel">Disponível</option>
+                        <option value="Adotado">Adotado</option>
+                    </select>
+
+                    Data de adoção: <input 
+                                        type="date" 
+                                        name="data_adocao" 
+                                        value="<?php echo $animal['data_adocao']; ?>"
+                                    >
+
                     Idade: <input type="number" name="idade" value="<?php echo $idade; ?>"><br>
 
                     Descrição: <textarea name="descricao"><?php echo $descricao ?? ''; ?></textarea><br>
+
+                    História: <textarea name="historia"></textarea><br>
                     
                     <?php echo $id ? 'Meta: <input type="number" name="meta" value="'. $meta .'"><br>' : ""; ?>
                     

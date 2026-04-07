@@ -38,6 +38,14 @@ switch ($url) {
         include 'pages/doar.php';
         break;
 
+    case 'success':
+        include 'pages/success.php';
+        break;
+
+    case 'contact':
+        include 'pages/contact.php';
+        break;
+
     default:
         echo "Página não encontrada";
 }

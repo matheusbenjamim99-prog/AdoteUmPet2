@@ -2,7 +2,7 @@
 include("config.php");
 include("includes/header.php");
 
-$sql = "SELECT * FROM animais WHERE apadrinhamento = 1";
+$sql = "SELECT * FROM animais WHERE status = 'Disponivel'";;
 $result = $conn->query($sql);
 ?>
 

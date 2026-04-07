@@ -32,8 +32,8 @@
                 <li><a href="home" class="nav-link active">Nossa Missão</a></li>
                 <li><a href="animais" class="nav-link">Adote Aqui</a></li>
                 <li><a href="sponsorship" class="nav-link">Apadrinhamento</a></li>
-                <li><a href="{% url 'success' %}" class="nav-link">Finais Felizes</a></li>
-                <li><a href="{% url 'contact' %}" class="nav-link">Contato</a></li>
+                <li><a href="success" class="nav-link">Finais Felizes</a></li>
+                <li><a href="contact" class="nav-link">Contato</a></li>
             </ul>
         </div>
     </nav>
